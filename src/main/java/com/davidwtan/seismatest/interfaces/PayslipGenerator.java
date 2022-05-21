@@ -1,2 +1,10 @@
-package com.davidwtan.seismatest.interfaces;public interface PayslipGenerator {
+package com.davidwtan.seismatest.interfaces;
+
+import com.davidwtan.seismatest.models.Employee;
+import com.davidwtan.seismatest.models.Payslip;
+
+import java.util.List;
+
+public interface PayslipGenerator {
+    public List<Payslip> generatePayslip(List<Employee> employees);
 }
