@@ -23,3 +23,9 @@ Employee format should be as follows:
     superRate: double
  }
 ```
+
+- I assume paymentMonth mapping are as follows:
+  - 0 -> January
+  - 1 -> February
+  - ...
+  - 11 -> December
