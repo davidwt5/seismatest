@@ -18,14 +18,15 @@ Employee format should be as follows:
  {
     firstName: String,
     lastName: String,
-    annualSalary: int,
-    paymentMonth: int,
-    superRate: double
+    annualSalary: int (0 <= annualSalary),
+    paymentMonth: int (0 <= paymentMonth < 12),
+    superRate: double (0 <= superRate <= 0.5)
  }
 ```
 
 - I assume paymentMonth mapping are as follows:
-  - 0 -> January
-  - 1 -> February
+  - 0: January
+  - 1: February
   - ...
-  - 11 -> December
+  - 11: December
+- fromDate and toDate are based on the current year
