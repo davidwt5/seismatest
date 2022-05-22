@@ -39,7 +39,7 @@ public class EmployeeService implements PayslipGenerator {
     private PayPeriod calcPayPeriod(int paymentMonth) {
         var thisYear = LocalDate.now().getYear();
         // +1 on the month argument because it takes [1,12] instead of [0,11] from the argument
-        var startOfMonth = LocalDate.of(thisYear, paymentMonth, 1);
+        var startOfMonth = LocalDate.of(thisYear, paymentMonth+1, 1);
         var endOfMonth = startOfMonth.withDayOfMonth(
                 startOfMonth.getMonth().length(startOfMonth.isLeapYear()));
         var formatter = DateTimeFormatter.ofPattern("dd LLLL");
