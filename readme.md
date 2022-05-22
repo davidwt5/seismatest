@@ -29,4 +29,5 @@ Employee format should be as follows:
   - 1: February
   - ...
   - 11: December
-- fromDate and toDate are based on the current year
+- fromDate and toDate are based on the current year, implying that if it's a leap year this year then
+February would have 29 days instead of 28.
