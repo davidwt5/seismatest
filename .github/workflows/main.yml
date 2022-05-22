@@ -33,5 +33,8 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-      - name: build container
+      - name: Build container
         run: docker build -t sheowyy/seismatest .
+
+      - name: Test container
+        run: docker run -it --rm --name springboot-test sheowyy/seismatest ./mvnw test
