@@ -36,12 +36,15 @@ jobs:
       - name: Build container
         run: docker build -t sheowyy/seismatest .
 
-      - name: Test container
+      - name: Run unit tests
         run: docker run --rm --name springboot-test sheowyy/seismatest mvn test
 
-      - name: Tag container
+      - name: Tag image
         run: docker tag sheowyy/seismatest:latest sheowyy/seismatest:latest
 
       - name: Login to docker hub
         run: echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
         # run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Push image to docker hub
+        run: docker push sheowyy/seismatest:latest
