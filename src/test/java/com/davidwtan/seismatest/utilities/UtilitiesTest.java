@@ -10,6 +10,7 @@ class UtilitiesTest {
         assertEquals(2, Utilities.roundDecimal(1.5));
     }
 
+    @Test
     void roundUp() {
         assertEquals(1, Utilities.roundDecimal(0.888));
     }
