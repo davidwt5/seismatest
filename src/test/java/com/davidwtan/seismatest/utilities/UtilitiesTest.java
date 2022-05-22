@@ -1,12 +1,9 @@
 package com.davidwtan.seismatest.utilities;
 
-import com.davidwtan.seismatest.utilities.Utilities;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
 class UtilitiesTest {
     @Test
     void roundUpPointFive() {
