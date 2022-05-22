@@ -31,3 +31,9 @@ Employee format should be as follows:
   - 11: December
 - fromDate and toDate are based on the current year, implying that if it's a leap year this year then
 February would have 29 days instead of 28.
+
+build: docker build -t sheowyy/seismatest .
+test: docker run -it --rm --name springboot-test sheowyy/seismatest ./mvnw test
+tag: docker tag sheowyy/seismatest:latest sheowyy/seismatest:latest
+push: docker push sheowyy/seismatest:latest
+run: docker run sheowyy/seismatest:latest
