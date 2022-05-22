@@ -43,4 +43,5 @@ jobs:
         run: docker tag sheowyy/seismatest:latest sheowyy/seismatest:latest
 
       - name: Login to docker hub
-        run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+        run: echo "$MY_PASSWORD" | docker login --username foo --password-stdin
+        # run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
