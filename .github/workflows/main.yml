@@ -30,7 +30,7 @@ jobs:
         run: docker run --rm --name springboot-test davidwt5/seismatest mvn test
 
       - name: Tag image
-        run: docker tag davidwt5/seismatest:latest davidwt5/seismatest:latest
+        run: docker tag davidwt5/seismatest:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/davidwt5/seismatest
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -41,6 +41,9 @@ jobs:
 
       - name: Login to ECR
         run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com
+
+      - name: Push to ECR
+        run: docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/davidwt5/seismatest
 
       # - name: Login to docker hub
       #   run: echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
