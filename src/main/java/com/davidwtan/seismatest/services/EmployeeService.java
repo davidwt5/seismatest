@@ -4,20 +4,33 @@ import com.davidwtan.seismatest.interfaces.PayslipGenerator;
 import com.davidwtan.seismatest.models.Employee;
 import com.davidwtan.seismatest.models.PayPeriod;
 import com.davidwtan.seismatest.models.Payslip;
-import org.apache.tomcat.jni.Local;
+import com.davidwtan.seismatest.utilities.Utilities;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.time.temporal.TemporalAdjuster;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService implements PayslipGenerator {
     @Override
     public List<Payslip> generatePayslip(List<Employee> employees) {
-        return null;
+        return employees.stream().map(employee -> {
+                    var payPeriod = calcPayPeriod(employee.getPaymentMonth());
+                    var grossIncome = calcGrossIncome(employee.getAnnualSalary());
+                    var incomeTax = calcIncomeTax(employee.getAnnualSalary());
+                    return new Payslip(
+                            employee,
+                            payPeriod.getFromDate(),
+                            payPeriod.getToDate(),
+                            grossIncome,
+                            incomeTax,
+                            calcSuperannuation(grossIncome, employee.getSuperRate()),
+                            calcNetIncome(grossIncome, incomeTax)
+                    );
+                }
+        ).collect(Collectors.toList());
     }
 
     // https://stackoverflow.com/questions/28177370/how-to-format-localdate-to-string
@@ -34,22 +47,40 @@ public class EmployeeService implements PayslipGenerator {
                 endOfMonth.format(formatter));
     }
 
-    private int grossIncome(int annualSalary) {
-        return -1;
+    private int calcGrossIncome(int annualSalary) {
+        return Utilities.roundDecimal((double) annualSalary / 12);
     }
 
-    // Don't forget to round
-    private int calcIncomeTax() {
-        return -1;
+    // Monthly Income Tax; calculated using the annual income tax table divided by 12
+    private int calcIncomeTax(int annualSalary) {
+         if(annualSalary > 18200 && annualSalary <=37000)
+             return calcIncomeTax(annualSalary, 0, 0.19, 18200);
+         else if(annualSalary > 37000 && annualSalary <= 87000)
+             return calcIncomeTax(annualSalary, 3572, 0.325, 37000);
+         else if(annualSalary > 87000 && annualSalary <= 180000)
+             return calcIncomeTax(annualSalary, 19822, 0.37, 87000);
+         else if(annualSalary > 180000)
+             return calcIncomeTax(annualSalary, 54232, 0.45, 180000);
+         else
+             return 0;
     }
 
-    // Don't forget to round
-    private int calcNetIncome() {
-        return -1;
+    /* From looking at the income tax table, it seems like the formula for monthly income tax is as follows:
+     *  (startingValue + (annualSalary - bracketMinimum) * extraRate) / 12
+     *  For example, someone with an annual income of $60,050 will be taxed as follows:
+     *  (3,572 + (60,050 - 37,000) * 0.325) / 12 = 922 (rounded up)
+     */
+    private int calcIncomeTax(int annualSalary, int startingValue, double extraRate, int bracketMinimum) {
+        return Utilities.roundDecimal(
+                (startingValue + (annualSalary - bracketMinimum) * extraRate) / 12.0
+        );
     }
 
-    // Don't forget to round
-    private int getSuperannuation() {
-        return -1;
+    private int calcNetIncome(int grossIncome, int incomeTax) {
+        return grossIncome - incomeTax;
+    }
+
+    private int calcSuperannuation(int grossIncome, double superRate) {
+        return Utilities.roundDecimal(grossIncome * superRate);
     }
 }
