@@ -5,6 +5,7 @@ import com.davidwtan.seismatest.models.Payslip;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -155,6 +156,26 @@ class EmployeeServiceTest {
                 Collections.singletonList(5269),
                 Collections.singletonList(1500),
                 Collections.singletonList(11398)
+        );
+    }
+
+    @Test
+    void multipleEmployees() {
+        var employeeService = new EmployeeService();
+        var employees = Arrays.asList(
+                new Employee("David", "Tan", 200000, 0, 0.09),
+                new Employee("Winston", "Tan", 120000, 0, 0.09)
+
+        );
+        var payslips = employeeService.generatePayslip(employees);
+        testPaySlips(payslips,
+                employees,
+                Arrays.asList("01 January", "01 January"),
+                Arrays.asList("31 January", "31 January"),
+                Arrays.asList(16667, 10000),
+                Arrays.asList(5269, 2669),
+                Arrays.asList(1500, 900),
+                Arrays.asList(11398, 7331)
         );
     }
 
