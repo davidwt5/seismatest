@@ -66,4 +66,12 @@ public class Employee {
                 ", superRate=" + superRate +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return annualSalary == employee.annualSalary && paymentMonth == employee.paymentMonth && Double.compare(employee.superRate, superRate) == 0 && firstName.equals(employee.firstName) && lastName.equals(employee.lastName);
+    }
 }
