@@ -6,5 +6,5 @@ import com.davidwtan.seismatest.models.Payslip;
 import java.util.List;
 
 public interface PayslipGenerator {
-    public List<Payslip> generatePayslip(List<Employee> employees);
+    List<Payslip> generatePayslip(List<Employee> employees);
 }
