@@ -38,3 +38,6 @@ jobs:
 
       - name: Test container
         run: docker run --rm --name springboot-test sheowyy/seismatest mvn test
+
+      - name: Tag container
+        run: docker tag sheowyy/seismatest:latest sheowyy/seismatest:latest
