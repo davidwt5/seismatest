@@ -27,7 +27,7 @@ jobs:
         run: docker build -t davidwt5/seismatest .
 
       - name: Run unit tests
-        run: docker run --rm --name springboot-test sheowyy/seismatest mvn test
+        run: docker run --rm --name springboot-test davidwt5/seismatest mvn test
 
       - name: Tag image
         run: docker tag davidwt5/seismatest:latest davidwt5/seismatest:latest
