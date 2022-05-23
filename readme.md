@@ -83,3 +83,5 @@ Note: Tested on JDK 17. Older versions of Java may not be compatible.
   - This solution is, of course, incompatible if we were to swap to incremental version tagging.
 - Unit test and E2E test should be able to load .csv or other file types that contain testing information
   (input and expected output) and run them as test cases. Much more efficient than handwriting test cases.
+- Sometimes, e2e fails because ECS is still redeploying
+  - Solution: Add a delay before executing e2e test
