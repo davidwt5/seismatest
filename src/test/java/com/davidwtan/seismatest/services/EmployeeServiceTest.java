@@ -1,5 +1,6 @@
 package com.davidwtan.seismatest.services;
 
+import com.davidwtan.seismatest.datafetchers.TaxBracketFetcher;
 import com.davidwtan.seismatest.models.Employee;
 import com.davidwtan.seismatest.models.Payslip;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmployeeServiceTest {
     @Test
     void baseTest() {
-        var taxService = new TaxService();
+        var taxBracketFetcher = new TaxBracketFetcher();
+        var taxService = new TaxService(taxBracketFetcher);
         var employeeService = new EmployeeService(taxService);
         var employees = Collections.singletonList(
                 new Employee("David", "Tan", 0, 0, 0)
@@ -33,7 +35,8 @@ class EmployeeServiceTest {
 
     @Test
     void september30DaysInMonth() {
-        var taxService = new TaxService();
+        var taxBracketFetcher = new TaxBracketFetcher();
+        var taxService = new TaxService(taxBracketFetcher);
         var employeeService = new EmployeeService(taxService);
         var employees = Collections.singletonList(
                 new Employee("David", "Tan", 0, 8, 0)
@@ -52,7 +55,8 @@ class EmployeeServiceTest {
 
     @Test
     void thisFebruaryLeapYearTest() {
-        var taxService = new TaxService();
+        var taxBracketFetcher = new TaxBracketFetcher();
+        var taxService = new TaxService(taxBracketFetcher);
         var employeeService = new EmployeeService(taxService);
         var employees = Collections.singletonList(
                 new Employee("David", "Tan", 0, 1, 0)
@@ -73,7 +77,8 @@ class EmployeeServiceTest {
 
     @Test
     void noTax() {
-        var taxService = new TaxService();
+        var taxBracketFetcher = new TaxBracketFetcher();
+        var taxService = new TaxService(taxBracketFetcher);
         var employeeService = new EmployeeService(taxService);
         var employees = Collections.singletonList(
                 new Employee("David", "Tan", 17777, 0, 0.09)
@@ -92,7 +97,8 @@ class EmployeeServiceTest {
 
     @Test
     void secondTierTax() {
-        var taxService = new TaxService();
+        var taxBracketFetcher = new TaxBracketFetcher();
+        var taxService = new TaxService(taxBracketFetcher);
         var employeeService = new EmployeeService(taxService);
         var employees = Collections.singletonList(
                 new Employee("David", "Tan", 35000, 0, 0.09)
@@ -111,7 +117,8 @@ class EmployeeServiceTest {
 
     @Test
     void thirdTierTax() {
-        var taxService = new TaxService();
+        var taxBracketFetcher = new TaxBracketFetcher();
+        var taxService = new TaxService(taxBracketFetcher);
         var employeeService = new EmployeeService(taxService);
         var employees = Collections.singletonList(
                 new Employee("David", "Tan", 60050, 0, 0.09)
@@ -131,7 +138,8 @@ class EmployeeServiceTest {
 
     @Test
     void fourthTierTax() {
-        var taxService = new TaxService();
+        var taxBracketFetcher = new TaxBracketFetcher();
+        var taxService = new TaxService(taxBracketFetcher);
         var employeeService = new EmployeeService(taxService);
         var employees = Collections.singletonList(
                 new Employee("David", "Tan", 120000, 0, 0.09)
@@ -150,7 +158,8 @@ class EmployeeServiceTest {
 
     @Test
     void fifthTierTax() {
-        var taxService = new TaxService();
+        var taxBracketFetcher = new TaxBracketFetcher();
+        var taxService = new TaxService(taxBracketFetcher);
         var employeeService = new EmployeeService(taxService);
         var employees = Collections.singletonList(
                 new Employee("David", "Tan", 200000, 0, 0.09)
@@ -169,7 +178,8 @@ class EmployeeServiceTest {
 
     @Test
     void multipleEmployees() {
-        var taxService = new TaxService();
+        var taxBracketFetcher = new TaxBracketFetcher();
+        var taxService = new TaxService(taxBracketFetcher);
         var employeeService = new EmployeeService(taxService);
         var employees = Arrays.asList(
                 new Employee("David", "Tan", 200000, 0, 0.09),

@@ -1,7 +1,9 @@
 package com.davidwtan.seismatest.services;
 
+import com.davidwtan.seismatest.datafetchers.TaxBracketFetcher;
 import com.davidwtan.seismatest.models.TaxBracket;
 import com.davidwtan.seismatest.models.TaxFormula;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -11,6 +13,12 @@ import java.util.Map;
 
 @Service
 public class TaxService {
+    private final TaxBracketFetcher taxBracketFetcher;
+    @Autowired
+    public TaxService(TaxBracketFetcher taxBracketFetcher) {
+        this.taxBracketFetcher = taxBracketFetcher;
+    }
+
     // Calculates the IncomeTax at a specific annual salary point
     public int calcIncomeTax(int annualSalary) {
         Map<TaxBracket, TaxFormula> taxBracketToTaxFormulaMap = getTaxBracketMapping();
@@ -25,8 +33,8 @@ public class TaxService {
     // Assumption #2: The number of brackets are relatively small, therefore O(n) time and O(n) space is not an issue.
     // Of the TaxFormula list
     public Map<TaxBracket,TaxFormula> getTaxBracketMapping() {
-        List<TaxBracket> taxBrackets = getTaxBrackets();
-        List<TaxFormula> taxFormulas = getTaxFormulas();
+        List<TaxBracket> taxBrackets = taxBracketFetcher.getTaxBrackets();
+        List<TaxFormula> taxFormulas = taxBracketFetcher.getTaxFormulas();
         Map<TaxBracket,TaxFormula> map = new HashMap<>();
         for(int i=0; i<taxBrackets.size(); i++) {
             map.put(taxBrackets.get(i), taxFormulas.get(i));
@@ -41,32 +49,5 @@ public class TaxService {
                 .filter(key -> annualSalary >= key.getMin() && annualSalary <= key.getMax())
                 .toList()
                 .get(0);
-    }
-
-    // Assumption #1: Tax formulas stay the same, but the specific values may change
-    // Assumption #2: Data is ordered in the same way as its associated TaxFormulas
-    // Can get data from read a variety of sources (JSON file, CSV file, Over the network, DB, etc.)
-    // For now, it's hardcoded
-    private List<TaxBracket> getTaxBrackets() {
-        return Arrays.asList(
-                new TaxBracket(0, 18200),
-                new TaxBracket(18201, 37000),
-                new TaxBracket(37001, 87000),
-                new TaxBracket(87001, 180000),
-                new TaxBracket(180001, Integer.MAX_VALUE)
-        );
-    }
-
-    // Assumption #1: Tax formulas stay the same, but the specific values may change
-    // Can get data from read a variety of sources (JSON file, CSV file, Over the network, DB, etc.)
-    // For now, it's hardcoded
-    private List<TaxFormula> getTaxFormulas() {
-        return Arrays.asList(
-                new TaxFormula(0, 0, 0),
-                new TaxFormula(0, 0.19, 18200),
-                new TaxFormula(3572, 0.325, 37000),
-                new TaxFormula(19822, 0.37, 87000),
-                new TaxFormula(54232, 0.45, 180000)
-        );
     }
 }
