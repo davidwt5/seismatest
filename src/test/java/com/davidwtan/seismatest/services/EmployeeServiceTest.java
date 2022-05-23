@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmployeeServiceTest {
     @Test
     void baseTest() {
-        var employeeService = new EmployeeService();
+        var taxService = new TaxService();
+        var employeeService = new EmployeeService(taxService);
         var employees = Collections.singletonList(
                 new Employee("David", "Tan", 0, 0, 0)
         );
@@ -32,7 +33,8 @@ class EmployeeServiceTest {
 
     @Test
     void september30DaysInMonth() {
-        var employeeService = new EmployeeService();
+        var taxService = new TaxService();
+        var employeeService = new EmployeeService(taxService);
         var employees = Collections.singletonList(
                 new Employee("David", "Tan", 0, 8, 0)
         );
@@ -50,7 +52,8 @@ class EmployeeServiceTest {
 
     @Test
     void thisFebruaryLeapYearTest() {
-        var employeeService = new EmployeeService();
+        var taxService = new TaxService();
+        var employeeService = new EmployeeService(taxService);
         var employees = Collections.singletonList(
                 new Employee("David", "Tan", 0, 1, 0)
         );
@@ -70,7 +73,8 @@ class EmployeeServiceTest {
 
     @Test
     void noTax() {
-        var employeeService = new EmployeeService();
+        var taxService = new TaxService();
+        var employeeService = new EmployeeService(taxService);
         var employees = Collections.singletonList(
                 new Employee("David", "Tan", 17777, 0, 0.09)
         );
@@ -88,7 +92,8 @@ class EmployeeServiceTest {
 
     @Test
     void secondTierTax() {
-        var employeeService = new EmployeeService();
+        var taxService = new TaxService();
+        var employeeService = new EmployeeService(taxService);
         var employees = Collections.singletonList(
                 new Employee("David", "Tan", 35000, 0, 0.09)
         );
@@ -106,7 +111,8 @@ class EmployeeServiceTest {
 
     @Test
     void thirdTierTax() {
-        var employeeService = new EmployeeService();
+        var taxService = new TaxService();
+        var employeeService = new EmployeeService(taxService);
         var employees = Collections.singletonList(
                 new Employee("David", "Tan", 60050, 0, 0.09)
         );
@@ -125,7 +131,8 @@ class EmployeeServiceTest {
 
     @Test
     void fourthTierTax() {
-        var employeeService = new EmployeeService();
+        var taxService = new TaxService();
+        var employeeService = new EmployeeService(taxService);
         var employees = Collections.singletonList(
                 new Employee("David", "Tan", 120000, 0, 0.09)
         );
@@ -143,7 +150,8 @@ class EmployeeServiceTest {
 
     @Test
     void fifthTierTax() {
-        var employeeService = new EmployeeService();
+        var taxService = new TaxService();
+        var employeeService = new EmployeeService(taxService);
         var employees = Collections.singletonList(
                 new Employee("David", "Tan", 200000, 0, 0.09)
         );
@@ -161,7 +169,8 @@ class EmployeeServiceTest {
 
     @Test
     void multipleEmployees() {
-        var employeeService = new EmployeeService();
+        var taxService = new TaxService();
+        var employeeService = new EmployeeService(taxService);
         var employees = Arrays.asList(
                 new Employee("David", "Tan", 200000, 0, 0.09),
                 new Employee("Winston", "Tan", 120000, 0, 0.09)
