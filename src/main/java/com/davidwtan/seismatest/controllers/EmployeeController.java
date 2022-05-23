@@ -23,4 +23,9 @@ public class EmployeeController {
     public List<Payslip> payslip(@RequestBody List<Employee> employees) {
         return employeeService.generatePayslip(employees);
     }
+
+    @GetMapping("/payslip")
+    public String payslip() {
+        return "payslip :D!";
+    }
 }
