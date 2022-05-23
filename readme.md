@@ -80,9 +80,6 @@ Note: Tested on JDK 17. Older versions of Java may not be compatible.
   aws ecs update-service --cluster (cluster-name) --service (service-name) --force-new-deployment --region (region)
   - force-new-deployment lets us redeploy images with the same tag without having
     to create a new revision of task definitions
-  - This solution is, of course, incompatible if we were to swap to incremental version tagging
-- Default security group was used to open EC2 port to the public
-  - Should create a new security group instead specifically for that EC2 instance.
-    This is to avoid unintentionally opening endpoints to the public for future instances that also use default.
+  - This solution is, of course, incompatible if we were to swap to incremental version tagging.
 - Unit test and E2E test should be able to load .csv or other file types that contain testing information
   (input and expected output) and run them as test cases. Much more efficient than handwriting test cases.
