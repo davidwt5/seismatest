@@ -38,6 +38,9 @@ jobs:
       - name: Push to ECR
         run: docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/davidwtan/seismatest:latest
 
+      - name: E2E testing
+        run: echo $(ls)
+
       # - name: Login to docker hub
       #   run: echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
       #   # run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
