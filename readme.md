@@ -9,7 +9,7 @@ and its docker image is hosted on AWS ECS at a public endpoint.
 #### Public API endpoint
 http://ec2-3-90-37-183.compute-1.amazonaws.com:8080/employee/payslip
 - **Expects**: POST request with a JSON body.
-  - JSON body should have a **well-behaved** list of Employees
+  - JSON body should be **well-behaved** (constraints listed in assumptions).
 
 #### Local
 Note: Tested on JDK 17. Older versions of Java may not be compatible.
@@ -18,9 +18,9 @@ Note: Tested on JDK 17. Older versions of Java may not be compatible.
 ### Features
 1. REST API written with Spring Boot
 2. Uses GitHub Actions to automate Unit tests, End-to-End tests using Nodejs and Jest,
-   building a Docker image, and pushing to ECR upon a commit on
-   the Main branch.
-3. Image deployed on ECS at the endpoint specified above
+   building a Docker image, and pushing to image to ECR, and rerunning ECS service to redeploy the image.
+    - All these are triggered upon a commit to the Main branch.
+3. Has a public endpoint at port 8080 accessible from any IP address.
 
 ### Assumptions
 
@@ -71,23 +71,18 @@ Note: Tested on JDK 17. Older versions of Java may not be compatible.
 
 ### Current Limitations and Possible Improvements
 - No HTTPS support; should not be used with real Employee data
-- Default DNS; difficult to remember endpoint
+- Default DNS; difficult to remember URL
 - When GitHub Actions build and push Docker images, the "latest"
   tag is always used. 
-  - Bad practice; Difficult to revert to previous versions since new images
-    replace the old ones with the same tag when pushed
-  - Should: Set up automatic version incrementation for tagging purposes
-- ECS instance does not automatically re-deploy upon new image being pushed
-  to ECR.
-  - Possible solution: <br>
-    aws ecs update-service --cluster (cluster-name) --service (service-name)
-    --force-new-deployment --region (region)
+  - Bad practice; Makes it difficult to revert to previous versions.
+  - Should: Set up automatic version incrementation tagging.
+- Uses the following command to redeploy image from ECR: <br>
+  aws ecs update-service --cluster (cluster-name) --service (service-name) --force-new-deployment --region (region)
   - force-new-deployment lets us redeploy images with the same tag without having
     to create a new revision of task definitions
-  - This solution is of course incompatible if we were to swap to incrimental version tagging
+  - This solution is, of course, incompatible if we were to swap to incremental version tagging
 - Default security group was used to open EC2 port to the public
-  - Should create a new security group instead specifically for that EC2 instance
-    in order to avoid unintentionally opening endpoints to the public for a different
-    EC2 instance that also uses default.
+  - Should create a new security group instead specifically for that EC2 instance.
+    This is to avoid unintentionally opening endpoints to the public for future instances that also use default.
 - Unit test and E2E test should be able to load .csv or other file types that contain testing information
   (input and expected output) and run them as test cases. Much more efficient than handwriting test cases.
