@@ -38,6 +38,9 @@ jobs:
       - name: Push to ECR
         run: docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/davidwtan/seismatest:latest
 
+      - name: Deploy to ECS
+        run: aws ecs update-service --cluster SeismaTestCluster1 --service RunLatestSeismaTest --force-new-deployment --region us-east-1
+
       - name: Install npm packages and E2E testing
         run: cd .github/e2e && npm i && npm test
 

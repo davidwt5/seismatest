@@ -26,6 +26,6 @@ public class EmployeeController {
 
     @GetMapping("/payslip")
     public String payslip() {
-        return "payslip :)";
+        return "payslip :D";
     }
 }
