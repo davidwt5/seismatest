@@ -13,7 +13,8 @@ import java.util.List;
 public class TaxBracketFetcher {
 
     // Assumption #1: Tax formulas stay the same, but the specific values may change
-    // Assumption #2: Data is ordered in the same way as its associated TaxFormulas
+    // Assumption #2: Data is ordered in the same way as its associated TaxFormula counterpart
+    // Using the sample tax brackets as an example: The "$87,001 - $180,000" tax bracket is at index=3
     public List<TaxBracket> getTaxBrackets() {
         return Arrays.asList(
                 new TaxBracket(0, 18200),
@@ -25,7 +26,8 @@ public class TaxBracketFetcher {
     }
 
     // Assumption #1: Tax formulas stay the same, but the specific values may change
-    // Assumption #2: Data is ordered in the same way as its associated TaxBrackets
+    // Assumption #2: Data is ordered in the same way as its associated TaxBrackets counterpart
+    // Using the sample tax brackets as an example: The "$19,822 plus 37c for each $1 over $87,000" formula is at index=3
     public List<TaxFormula> getTaxFormulas() {
         return Arrays.asList(
                 new TaxFormula(0, 0, 0),
