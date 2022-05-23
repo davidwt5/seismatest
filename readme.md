@@ -84,6 +84,7 @@ Note: Tested on JDK 17. Older versions of Java may not be compatible.
     --force-new-deployment --region (region)
   - force-new-deployment lets us redeploy images with the same tag without having
     to create a new revision of task definitions
+  - This solution is of course incompatible if we were to swap to incrimental version tagging
 - Default security group was used to open EC2 port to the public
   - Should create a new security group instead specifically for that EC2 instance
     in order to avoid unintentionally opening endpoints to the public for a different
