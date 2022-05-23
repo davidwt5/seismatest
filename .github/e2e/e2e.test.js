@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 const url =
-  "http://ec2-3-90-37-183.compute-1.amazonaws.com:8080/employee/payslip";
+  "http://ec2-3-84-66-55.compute-1.amazonaws.com:8080/employee/payslip";
 
 test("testing endpoint", async () => {
   let body = [

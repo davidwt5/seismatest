@@ -7,7 +7,7 @@ and its docker image is hosted on AWS ECS at a public endpoint.
 
 ### Run Instructions
 #### Public API endpoint
-http://ec2-3-90-37-183.compute-1.amazonaws.com:8080/employee/payslip
+http://ec2-3-84-66-55.compute-1.amazonaws.com:8080/employee/payslip
 - **Expects**: POST request with a JSON body.
   - JSON body should be **well-behaved** (constraints listed in assumptions).
 
